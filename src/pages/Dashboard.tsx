@@ -13,6 +13,7 @@ interface TypingResult {
   wpm: number;
   accuracy: number;
   time_taken: number;
+  difficulty: string;
   created_at: string;
 }
 
@@ -129,6 +130,7 @@ const Dashboard = () => {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Date</TableHead>
+                      <TableHead>Difficulty</TableHead>
                       <TableHead>Speed (WPM)</TableHead>
                       <TableHead>Accuracy</TableHead>
                       <TableHead>Time</TableHead>
@@ -139,6 +141,14 @@ const Dashboard = () => {
                       <TableRow key={result.id}>
                         <TableCell>
                           {format(new Date(result.created_at), 'MMM d, yyyy HH:mm')}
+                        </TableCell>
+                        <TableCell>
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                            ${result.difficulty === 'easy' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                              result.difficulty === 'medium' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' :
+                              'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'}`}>
+                            {result.difficulty.charAt(0).toUpperCase() + result.difficulty.slice(1)}
+                          </span>
                         </TableCell>
                         <TableCell className="font-semibold text-primary">
                           {result.wpm} WPM

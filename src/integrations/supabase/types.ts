@@ -18,6 +18,7 @@ export type Database = {
         Row: {
           accuracy: number
           created_at: string
+          difficulty: string
           id: string
           text_length: number
           time_taken: number
@@ -27,6 +28,7 @@ export type Database = {
         Insert: {
           accuracy: number
           created_at?: string
+          difficulty?: string
           id?: string
           text_length: number
           time_taken: number
@@ -36,6 +38,7 @@ export type Database = {
         Update: {
           accuracy?: number
           created_at?: string
+          difficulty?: string
           id?: string
           text_length?: number
           time_taken?: number
