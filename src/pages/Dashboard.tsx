@@ -5,8 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowLeft, TrendingUp, Award, Calendar } from 'lucide-react';
+import { ArrowLeft, TrendingUp, Award, Calendar, Eye } from 'lucide-react';
 import { format } from 'date-fns';
+import { TextComparisonModal } from '@/components/TextComparisonModal';
 
 interface TypingResult {
   id: string;
@@ -15,6 +16,8 @@ interface TypingResult {
   time_taken: number;
   difficulty: string;
   created_at: string;
+  original_text: string;
+  typed_text: string;
 }
 
 const Dashboard = () => {
@@ -22,6 +25,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [results, setResults] = useState<TypingResult[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedResult, setSelectedResult] = useState<TypingResult | null>(null);
 
   useEffect(() => {
     if (!user) {
@@ -134,6 +138,7 @@ const Dashboard = () => {
                       <TableHead>Speed (WPM)</TableHead>
                       <TableHead>Accuracy</TableHead>
                       <TableHead>Time</TableHead>
+                      <TableHead>Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -155,6 +160,16 @@ const Dashboard = () => {
                         </TableCell>
                         <TableCell>{result.accuracy}%</TableCell>
                         <TableCell>{result.time_taken}s</TableCell>
+                        <TableCell>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setSelectedResult(result)}
+                          >
+                            <Eye className="w-4 h-4 mr-1" />
+                            View Details
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -164,6 +179,15 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </div>
+
+      <TextComparisonModal
+        open={!!selectedResult}
+        onOpenChange={(open) => !open && setSelectedResult(null)}
+        originalText={selectedResult?.original_text || ''}
+        typedText={selectedResult?.typed_text || ''}
+        wpm={selectedResult?.wpm || 0}
+        accuracy={selectedResult?.accuracy || 0}
+      />
     </div>
   );
 };
