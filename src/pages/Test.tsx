@@ -134,6 +134,8 @@ const Test = () => {
         time_taken: elapsedTime,
         text_length: text.length,
         difficulty: difficulty,
+        original_text: text,
+        typed_text: finalInput,
       });
 
       if (error) {

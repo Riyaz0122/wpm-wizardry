@@ -20,8 +20,10 @@ export type Database = {
           created_at: string
           difficulty: string
           id: string
+          original_text: string
           text_length: number
           time_taken: number
+          typed_text: string
           user_id: string
           wpm: number
         }
@@ -30,8 +32,10 @@ export type Database = {
           created_at?: string
           difficulty?: string
           id?: string
+          original_text?: string
           text_length: number
           time_taken: number
+          typed_text?: string
           user_id: string
           wpm: number
         }
@@ -40,8 +44,10 @@ export type Database = {
           created_at?: string
           difficulty?: string
           id?: string
+          original_text?: string
           text_length?: number
           time_taken?: number
+          typed_text?: string
           user_id?: string
           wpm?: number
         }
